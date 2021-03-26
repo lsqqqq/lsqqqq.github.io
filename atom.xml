@@ -6,7 +6,7 @@
   <link href="https://lsqqqq.github.io/atom.xml" rel="self"/>
   
   <link href="https://lsqqqq.github.io/"/>
-  <updated>2021-03-26T06:47:50.631Z</updated>
+  <updated>2021-03-26T07:09:08.014Z</updated>
   <id>https://lsqqqq.github.io/</id>
   
   <author>
@@ -15,6 +15,47 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Torch常用操作——数据集</title>
+    <link href="https://lsqqqq.github.io/2021/03/26/Torch%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86/"/>
+    <id>https://lsqqqq.github.io/2021/03/26/Torch%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86/</id>
+    <published>2021-03-26T07:08:32.000Z</published>
+    <updated>2021-03-26T07:09:08.014Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Torch常用操作——数据集"><a href="#Torch常用操作——数据集" class="headerlink" title="Torch常用操作——数据集"></a>Torch常用操作——数据集</h2><p>读取mnist示例</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> torchvision.transforms <span class="keyword">import</span> ToTensor, Lambda</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">training_data = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">test_data = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">False</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor()</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>可以使用Dataloader来按照batch随机读取数据</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line">train_dataloader = DataLoader(training_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line">test_dataloader = DataLoader(test_data, batch_size=<span class="number">64</span>, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure><p>查看读取的数据详情</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">train_features, train_labels = <span class="built_in">next</span>(<span class="built_in">iter</span>(train_dataloader))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Feature batch shape: <span class="subst">&#123;train_features.size()&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Labels batch shape: <span class="subst">&#123;train_labels.size()&#125;</span>&quot;</span>)</span><br><span class="line">img = train_features[<span class="number">0</span>].squeeze()</span><br><span class="line">label = train_labels[<span class="number">0</span>]</span><br><span class="line">plt.imshow(img, cmap=<span class="string">&quot;gray&quot;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Label: <span class="subst">&#123;label&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Torch常用操作——数据集&quot;&gt;&lt;a href=&quot;#Torch常用操作——数据集&quot; class=&quot;headerlink&quot; title=&quot;Torch常用操作——数据集&quot;&gt;&lt;/a&gt;Torch常用操作——数据集&lt;/h2&gt;&lt;p&gt;读取mnist示例&lt;/p&gt;
+&lt;figure </summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Torch常用操作——数据结构</title>
+    <link href="https://lsqqqq.github.io/2021/03/26/Torch%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>https://lsqqqq.github.io/2021/03/26/Torch%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</id>
+    <published>2021-03-26T07:08:21.000Z</published>
+    <updated>2021-03-26T07:08:51.681Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Torch常用操作——数据结构"><a href="#Torch常用操作——数据结构" class="headerlink" title="Torch常用操作——数据结构"></a>Torch常用操作——数据结构</h2><p>pytorch采用的数据结构是tensor，类似于numpy的ndarray，并且可以和ndarray之间进行灵活的转换。与ndarray不同，tensor可以在gpu上运行，从而利用显卡的性能。</p><p>依赖库</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure><p>tensor初始化</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 直接初始化</span></span><br><span class="line">data = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line">x_data = torch.tensor(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 从numpy array初始化</span></span><br><span class="line">np_array = np.array(data)</span><br><span class="line">x_np = torch.from_numpy(np_array)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 从另外一个tensor初始化</span></span><br><span class="line">x_ones = torch.ones_like(x_data) <span class="comment"># 创建一个和x_data形状相同的全1矩阵</span></span><br><span class="line">x_rand = torch.rand_like(x_data, dtype=torch.<span class="built_in">float</span>) <span class="comment"># 创建一个形状和x_data相同的随机数矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 生成指定形状，满足一定规律的矩阵</span></span><br><span class="line">shape = (<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">rand_tensor = torch.rand(shape)<span class="comment"># 随机数矩阵</span></span><br><span class="line">ones_tensor = torch.ones(shape)<span class="comment">#全1阵</span></span><br><span class="line">zeros_tensor = torch.zeros(shape)<span class="comment">#全0阵</span></span><br></pre></td></tr></table></figure><p>tensor的参数和操作</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">tensor = torch.rand(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">tensor_1 = torch.ones(<span class="number">4</span>, <span class="number">4</span>) * <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看tensor参数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Shape of tensor: <span class="subst">&#123;tensor.shape&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Datatype of tensor: <span class="subst">&#123;tensor.dtype&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Device tensor is stored on: <span class="subst">&#123;tensor.device&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 索引和切片</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;First row: &#x27;</span>,tensor[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;First column: &#x27;</span>, tensor[:, <span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Last column:&#x27;</span>, tensor[..., -<span class="number">1</span>])</span><br><span class="line">tensor[:,<span class="number">1</span>] = <span class="number">0</span></span><br><span class="line"><span class="built_in">print</span>(tensor)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式从tensor转回numpy</span></span><br><span class="line">tensor.numpy()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并多个tensor（dim=1时横向拼接，为0时纵向）</span></span><br><span class="line">t1 = torch.cat([tensor, tensor, tensor], dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全体元素加某个值</span></span><br><span class="line">tensor.add_(<span class="number">5</span>)</span><br><span class="line">tensor += <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 矩阵乘法（此处举例自己乘自己）（z1=z2=z3）</span></span><br><span class="line">z1 = tensor * tensor</span><br><span class="line">z2 = tensor.mul(tensor)</span><br><span class="line">z3 = torch.rand_like(tensor)</span><br><span class="line">torch.mul(tensor, tensor, out=z3)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><p>gpu相关操作</p><blockquote><p>此处重点参考：</p><p><a class="link"   href="https://tangshusen.me/Dive-into-DL-PyTorch/#/chapter04_DL_computation/4.6_use-gpu" >https://tangshusen.me/Dive-into-DL-PyTorch/#/chapter04_DL_computation/4.6_use-gpu<i class="fas fa-external-link-alt"></i></a></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查gpu是否可用，可用返回True</span></span><br><span class="line">torch.cuda.is_available()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把tensor放入gpu</span></span><br><span class="line">tensor = tensor.to(<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 查看gpu数量</span></span><br><span class="line">torch.cuda.device_count()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前gpu索引号，从0开始</span></span><br><span class="line">torch.cuda.current_device()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据索引号查看gpu名</span></span><br><span class="line">torch.cuda.get_device_name(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看tensor所在的gpu情况</span></span><br><span class="line"><span class="comment"># 输出： device(type=&#x27;cuda&#x27;, index=0)</span></span><br><span class="line">x.device</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把变量从一个gpu转移到另一个gpu</span></span><br><span class="line">x = x.cuda(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建变量时指定gpu或cpu</span></span><br><span class="line">device = torch.device(<span class="string">&#x27;cuda&#x27;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line">x = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], device=device)</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">x = torch.tensor([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]).to(device)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Torch常用操作——数据结构&quot;&gt;&lt;a href=&quot;#Torch常用操作——数据结构&quot; class=&quot;headerlink&quot; title=&quot;Torch常用操作——数据结构&quot;&gt;&lt;/a&gt;Torch常用操作——数据结构&lt;/h2&gt;&lt;p&gt;pytorch采用的数据结构是ten</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>服务器硬件及驱动检测</title>
@@ -34,30 +75,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>post</title>
-    <link href="https://lsqqqq.github.io/2021/03/25/post/"/>
-    <id>https://lsqqqq.github.io/2021/03/25/post/</id>
-    <published>2021-03-25T15:29:42.000Z</published>
-    <updated>2021-03-25T15:30:38.493Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="爱神的箭卡士打的sadkansd"><a href="#爱神的箭卡士打的sadkansd" class="headerlink" title="爱神的箭卡士打的sadkansd"></a>爱神的箭卡士打的sadkansd</h1>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;爱神的箭卡士打的sadkansd&quot;&gt;&lt;a href=&quot;#爱神的箭卡士打的sadkansd&quot; class=&quot;headerlink&quot; title=&quot;爱神的箭卡士打的sadkansd&quot;&gt;&lt;/a&gt;爱神的箭卡士打的sadkansd&lt;/h1&gt;</summary>
-      
-    
-    
-    
-    
-    <category term="haskd" scheme="https://lsqqqq.github.io/tags/haskd/"/>
-    
-    <category term="asdad" scheme="https://lsqqqq.github.io/tags/asdad/"/>
     
   </entry>
   
